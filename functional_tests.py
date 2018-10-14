@@ -19,18 +19,16 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'Enter a to-do '
+            'Enter a to-do'
         )
-        inputbox.send_keys('Buy a peacock feathers')
+        inputbox.send_keys('Buy peacok feathers')
         inputbox.send_keys(Keys.ENTER)
 
         time.sleep(1)
 
         table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(
-            any(row.text == '1: Buy peacok feathers' for row in rows )
-        )
+        rows = table.find_elements_by_tag_name('td')
+        self.assertIn('1: Buy peacok feathers', [row.text for row in rows])
 
         self.fail('Finish the test')
 
